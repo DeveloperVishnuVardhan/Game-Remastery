@@ -19,12 +19,12 @@ transforms = transforms.Compose([
     transforms.ToTensor(),
     transforms.Resize((1296, 1296)),
     # Normalizing using ImageNet stats
-    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    transforms.Normalize(mean=[0.5], std=[0.5])
 ])
 
 train_dataset = CustomDataset(
     root_dir='data/DIV2K_train_HR/DIV2K_train_HR', transform=transforms)
-train_loader = DataLoader(train_dataset, batch_size=4,
+train_loader = DataLoader(train_dataset, batch_size=8,
                           collate_fn=custom_collate, shuffle=True)
 
 device = 'mps'

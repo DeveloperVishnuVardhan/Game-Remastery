@@ -30,15 +30,17 @@ class CustomDataset(Dataset):
 
     def __getitem__(self, index):
         image_file = os.path.join(self.root_dir, self.image_files[index])
-        image = Image.open(image_file)
-        low_res_img = image.resize(
+        image = Image.open(image_file).convert("YCbCr")
+        y, cb, cr = image.split()
+
+        low_res_img = y.resize(
             (720, 720), Image.ANTIALIAS)
         upscaled_img = low_res_img.resize(
-            (image.width, image.height), Image.BICUBIC)
+            (y.width, y.height), Image.BICUBIC)
 
         if self.transform:
-            image = self.transform(image)
+            y = self.transform(y)
             upscaled_img = self.transform(upscaled_img)
             # print(upscaled_img.size(), image.size())
 
-        return upscaled_img, image
+        return upscaled_img, y # Returning only the y-channel images.

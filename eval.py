@@ -13,6 +13,13 @@ from utils import create_test_data_loader
 
 
 def calculate_PSNR_SSIM(model: torch.nn.Module, criterion: torch.nn, test_loader: torch.utils.data.DataLoader):
+    """_summary_
+
+    Args:
+        model (torch.nn.Module): Model to use for evaluation.
+        criterion (torch.nn): Loss function to use
+        test_loader (torch.utils.data.DataLoader): test dataloader.
+    """
     total_psnr = 0
     total_ssim = 0
 
